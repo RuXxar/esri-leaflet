@@ -37,9 +37,11 @@ function serialize (params) {
 }
 
 function createRequest (callback, context) {
+  console.log('create request with callback and context', callback, context);
   var httpRequest = new window.XMLHttpRequest();
 
   httpRequest.onerror = function (e) {
+    console.log('createRequest onerror', e);
     httpRequest.onreadystatechange = Util.falseFn;
 
     callback.call(context, {
@@ -51,13 +53,18 @@ function createRequest (callback, context) {
   };
 
   httpRequest.onreadystatechange = function () {
+    console.log('createRequest onreadystatechange');
     var response;
     var error;
 
     if (httpRequest.readyState === 4) {
+      console.log('createRequest we got ready state 4!');
       try {
+        console.log('createRequest try to parse response');
         response = JSON.parse(httpRequest.responseText);
+        console.log(response);
       } catch (e) {
+        console.log('createRequest failed to parse response');
         response = null;
         error = {
           code: 500,
@@ -66,17 +73,21 @@ function createRequest (callback, context) {
       }
 
       if (!error && response.error) {
+        console.log('createRequest we got a response.error', response.error);
         error = response.error;
         response = null;
       }
 
       httpRequest.onerror = Util.falseFn;
 
+      console.log('createRequest call the god damn callback');
       callback.call(context, error, response);
+      console.log('createRequest called the god damn callback');
     }
   };
 
   httpRequest.ontimeout = function () {
+    console.log('createRequest we timed out oh noes :(');
     this.onerror();
   };
 
@@ -84,6 +95,7 @@ function createRequest (callback, context) {
 }
 
 function xmlHttpPost (url, params, callback, context) {
+  console.log('xmlhttpPost I am posting url', url, params, callback, context);
   var httpRequest = createRequest(callback, context);
   httpRequest.open('POST', url);
 
@@ -108,7 +120,9 @@ function xmlHttpGet (url, params, callback, context) {
       httpRequest.timeout = context.options.timeout;
     }
   }
+  console.log('xmlhttpget send the request', url);
   httpRequest.send(null);
+  console.log('xmlhttpget sent the request', url);
 
   return httpRequest;
 }

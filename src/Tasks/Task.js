@@ -84,6 +84,7 @@ export var Task = Class.extend({
       return Request.get.JSONP(url, params, callback, context);
     }
 
+    console.log('requesting with:', method, params, callback, context);
     return Request[method](url, params, callback, context);
   }
 });
