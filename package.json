@@ -86,6 +86,9 @@
     "test": "npm run lint && karma start"
   },
   "semistandard": {
+    "ignore": [
+      "/dist"
+    ],
     "globals": [
       "expect",
       "L",
