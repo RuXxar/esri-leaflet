@@ -24,6 +24,7 @@ export var Service = Evented.extend({
   },
 
   post: function (path, params, callback, context) {
+    console.log('Service.post was called with', path, params, callback, context);
     return this._request('post', path, params, callback, context);
   },
 
