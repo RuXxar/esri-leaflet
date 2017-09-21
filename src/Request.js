@@ -81,7 +81,8 @@ function createRequest (callback, context) {
       httpRequest.onerror = Util.falseFn;
 
       console.log('createRequest call the god damn callback');
-      callback.call(context, error, response);
+      console.log('forget the callback');
+      /*  callback.call(context, error, response);  */
       console.log('createRequest called the god damn callback');
     }
   };
