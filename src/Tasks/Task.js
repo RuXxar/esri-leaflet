@@ -80,6 +80,7 @@ export var Task = Class.extend({
     console.log('this is the url!', url);
 
     if ((method === 'get' || method === 'request') && !this.options.useCors) {
+      console.log('jsonP bro');
       return Request.get.JSONP(url, params, callback, context);
     }
 

@@ -122,8 +122,10 @@ export function request (url, params, callback, context) {
 
   // ie10/11 require the request be opened before a timeout is applied
   if (requestLength <= 2000 && Support.cors) {
+    console.log('real request 1');
     httpRequest.open('GET', url + '?' + paramString);
   } else if (requestLength > 2000 && Support.cors) {
+    console.log('real request 2');
     httpRequest.open('POST', url);
     httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
   }
@@ -136,22 +138,27 @@ export function request (url, params, callback, context) {
 
   // request is less than 2000 characters and the browser supports CORS, make GET request with XMLHttpRequest
   if (requestLength <= 2000 && Support.cors) {
+    console.log('real request 3');
     httpRequest.send(null);
 
   // request is more than 2000 characters and the browser supports CORS, make POST request with XMLHttpRequest
   } else if (requestLength > 2000 && Support.cors) {
+    console.log('real request 4');
     httpRequest.send(paramString);
 
   // request is less  than 2000 characters and the browser does not support CORS, make a JSONP request
   } else if (requestLength <= 2000 && !Support.cors) {
+    console.log('real request 5');
     return jsonp(url, params, callback, context);
 
   // request is longer then 2000 characters and the browser does not support CORS, log a warning
   } else {
+    console.log('real request 6');
     warn('a request to ' + url + ' was longer then 2000 characters and this browser cannot make a cross-domain post request. Please use a proxy http://esri.github.io/esri-leaflet/api-reference/request.html');
     return;
   }
 
+  console.log('return the request...');
   return httpRequest;
 }
 
