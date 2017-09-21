@@ -123,20 +123,31 @@ export var Query = Task.extend({
   },
 
   run: function (callback, context) {
+    console.log("run some stuff");
+    console.log(this.options);
+    console.log(this.params);
     this._cleanParams();
 
     // services hosted on ArcGIS Online and ArcGIS Server 10.3.1+ support requesting geojson directly
     if (this.options.isModern || isArcgisOnline(this.options.url)) {
+      console.log('yes its modern');
       this.params.f = 'geojson';
 
       return this.request(function (error, response) {
+        console.log('request is complete');
+        console.log(error);
+        console.log(response);
         this._trapSQLerrors(error);
         callback.call(context, error, response, response);
       }, this);
 
     // otherwise convert it in the callback then pass it on
     } else {
+      console.log('no its not modern');
       return this.request(function (error, response) {
+        console.log('request is complete');
+        console.log(error);
+        console.log(response);
         this._trapSQLerrors(error);
         callback.call(context, error, (response && responseToFeatureCollection(response)), response);
       }, this);
