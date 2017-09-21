@@ -124,6 +124,7 @@ export var Query = Task.extend({
 
   run: function (callback, context) {
     console.log('run some stuff');
+    console.log(this);
     console.log(this.options);
     console.log(this.params);
     this._cleanParams();

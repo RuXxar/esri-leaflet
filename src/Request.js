@@ -99,6 +99,7 @@ function xmlHttpPost (url, params, callback, context) {
 }
 
 function xmlHttpGet (url, params, callback, context) {
+  console.log('xmlhttpget', url);
   var httpRequest = createRequest(callback, context);
   httpRequest.open('GET', url + '?' + serialize(params), true);
 
@@ -114,6 +115,7 @@ function xmlHttpGet (url, params, callback, context) {
 
 // AJAX handlers for CORS (modern browsers) or JSONP (older browsers)
 export function request (url, params, callback, context) {
+  console.log('real request', url);
   var paramString = serialize(params);
   var httpRequest = createRequest(callback, context);
   var requestLength = (url + '?' + paramString).length;
