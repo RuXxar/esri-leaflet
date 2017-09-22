@@ -37,7 +37,7 @@ function serialize (params) {
 }
 
 function createRequest (callback, context) {
-  console.log('create request with callback and context', callback, context);
+  console.log('create request with callback and context', callback);
   var httpRequest = new window.XMLHttpRequest();
 
   httpRequest.onerror = function (e) {
@@ -82,7 +82,7 @@ function createRequest (callback, context) {
 
       console.log('createRequest call the god damn callback');
       console.log('forget the callback');
-      /*  callback.call(context, error, response);  */
+      callback.call(context, error, response);
       console.log('createRequest called the god damn callback');
     }
   };
